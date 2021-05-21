@@ -30,27 +30,6 @@ ROUTER.get("/products/find/:name", async (req, res, next) => {
 });
 
 
-// find by ID => works
-ROUTER.get("/products/find/id/:id", async (req, res) => {
-    const PROD = await PRODUCT.find(
-        { _id: req.params.id },
-        "name price",
-        (err, prod) => {
-            if (err) {
-                console.error(err);
-                res.send(err.stack);
-            } else {
-                try {
-                    console.log("product found: ", prod[0].name, prod[0].price);
-                    res.send(prod);
-                } catch (e) {
-                    const myNotFoundError = new Error(`${NAME} not found in database`);
-                    next(myNotFoundError);
-                }
-            }
-        }
-    );
-})
 
 // create products => works
 ROUTER.post("/products", async (req, res) => {
